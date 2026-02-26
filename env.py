@@ -1,4 +1,4 @@
-"""SWE-Bench HUD Environment"""
+"""SpreadSheetBench HUD Environment"""
 
 import sys
 import os
