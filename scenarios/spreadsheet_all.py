@@ -6,6 +6,7 @@ import os
 from hud import Environment
 import pandas as pd
 from evaluate.eval_all import eval_all
+from config import VOLUMES_PATH, SOLUTIONS_PATH
 from .prompts import PROMPT
 
 logging.basicConfig(
@@ -50,15 +51,14 @@ def register_spreadsheetbench_all(env: Environment):
         instruction_type: str,
         answer_position: str,
     ):
-        dataset_path = "all_data_912"
+        dataset_path = os.path.join(VOLUMES_PATH, "all_data_912_v0.1")
+        spreadsheet_path = os.path.join(dataset_path, spreadsheet_path)
         spreadsheet_content = get_spreadsheet_content(os.path.join(dataset_path, spreadsheet_path, f"1_{id}_input.xlsx"))
-        output_path = os.path.join(
-            dataset_path, spreadsheet_path, f"1_{id}_output.xlsx"
-        )
+        output_path = os.path.join(SOLUTIONS_PATH, f"1_{id}_output.xlsx")
         
         prompt = PROMPT.format(instruction=instruction, spreadsheet_path=spreadsheet_path, spreadsheet_content=spreadsheet_content, instruction_type=instruction_type, answer_position=answer_position, output_path=output_path, max_turn_num=max_turn_num)
         yield prompt
-        result = eval_all(id, answer_position, dataset_path)
+        result = await eval_all(id, answer_position, dataset_path)
         yield result
 
 __all__ = ["register_spreadsheetbench_all"]

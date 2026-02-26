@@ -13,8 +13,8 @@ def compare(proc_file, gt_file, answer_position):
         return False, "File not exist"
     # Open workbooks
     try:
-        wb_gt = openpyxl.load_workbook(filename=gt_file, data_only=True)
-        wb_proc = openpyxl.load_workbook(filename=proc_file, data_only=True)
+        wb_gt = openpyxl.load_workbook(filename=gt_file, data_only=False)
+        wb_proc = openpyxl.load_workbook(filename=proc_file, data_only=False)
     except Exception as e:
         return False, str(e)
 

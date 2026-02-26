@@ -1,5 +1,5 @@
 import os
-from hud.tools.jupyter import JupyterTool
+from tools.jupyter import JupyterTool
 from config import SOLUTIONS_PATH
 
 
@@ -22,3 +22,5 @@ class JupyterToolWithRecord(JupyterTool):
                 f.write("\n\n")
 
         return result
+
+__all__ = ["JupyterToolWithRecord"]

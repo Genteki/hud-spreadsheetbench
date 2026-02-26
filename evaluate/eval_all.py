@@ -5,12 +5,10 @@ from .compare import compare
 from .generalize import generalize_code
 from config import VOLUMES_PATH, SOLUTIONS_PATH
 from tools import JupyterToolWithRecord
-from . import evaluate
-
+from pathlib import Path
 logger = logging.getLogger(__name__)
 
 
-@evaluate.tool("eval_all")
 async def eval_all(id: str, answer_position: str, dataset_path: str = "all_data_912"):
     """
     Evaluate solution on all three instances (generalization test).
@@ -47,9 +45,9 @@ async def eval_all(id: str, answer_position: str, dataset_path: str = "all_data_
         total_passed = 0
         for i in range(1, 4):
             instance_key = f"instance_{i}"
-            solution_path = os.path.join(SOLUTIONS_PATH, f"{i}_solution.py")
-            output_file = spreadsheet_dir / f"{i}_{id}_output.xlsx"
-            answer_file = spreadsheet_dir / f"{i}_{id}_answer.xlsx"
+            output_file = Path(SOLUTIONS_PATH) / f"{i}_{id}_output.xlsx"
+            solution_path = Path(SOLUTIONS_PATH) / f"{i}_solution.py"
+            answer_file = Path(spreadsheet_dir) / f"{i}_{id}_answer.xlsx"
 
             # Execute solution
             logger.info(f"Executing solution for instance {i}")
