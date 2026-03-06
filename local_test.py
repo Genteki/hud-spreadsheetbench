@@ -34,5 +34,19 @@ async def test_spreadsheetbench():
             print(f"Resolved: {ctx.reward == 1.0}")
 
 
+async def test_spreadsheetbench_lite():
+    """Test the lite scenario with an agent (only requires task_id)."""
+    print("\n=== Test: SpreadsheetBench Lite ===")
+
+    async with env:
+        task = env("spreadsheetbench_lite", id="59196")
+        async with hud.eval(task, trace=True) as ctx:
+            agent = create_agent(model=MODEL)
+            await agent.run(ctx, max_steps=70)
+            print(f"Reward: {ctx.reward}")
+            print(f"Resolved: {ctx.reward == 1.0}")
+
+
 if __name__ == "__main__":
-    asyncio.run(test_spreadsheetbench())
+    # Run the lite test by default
+    asyncio.run(test_spreadsheetbench_lite())

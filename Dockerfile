@@ -25,6 +25,7 @@ RUN mkdir -p /app/data /app/logs /app/shared_data /app/workspace && \
     wget -q https://huggingface.co/datasets/KAKA22/SpreadsheetBench/resolve/main/spreadsheetbench_912_v0.1.tar.gz -O /tmp/data.tar.gz && \
     tar -xzf /tmp/data.tar.gz -C /app/data && \
     rm /tmp/data.tar.gz && \
+    python3 /app/data/split_dataset.py && \
     chown -R $NB_UID:$NB_GID /app
 
 USER $NB_UID
